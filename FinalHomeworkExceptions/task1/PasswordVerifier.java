@@ -14,8 +14,10 @@ public class PasswordVerifier {
         Pattern UpperCase = Pattern.compile(".*[A-Z].*");
         Matcher matcherUC = UpperCase.matcher(pass);
         Matcher matcherNum = Numbers.matcher(pass);
-        if (pass.length() < 8) {
-            throw new PasswordVerifieException("The password must not be less than eight characters");
+        if (!pass.isEmpty() && pass.length() < 8) {
+            throw new PasswordVerifieException("The password must not be less than 8(eight) characters");
+        } else if (pass.isEmpty()) {
+            throw new PasswordVerifieException("The password must not be empty");
         } else if (!matcherNum.find()) {
             throw new PasswordVerifieException("The password must contain at least one digit");
         } else if (!matcherUC.find()) {
