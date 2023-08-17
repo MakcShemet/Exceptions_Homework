@@ -59,7 +59,7 @@ public class FileManager implements FileManagerInterface {
         File myfile = new File(filePath + filename);
         File myfile_copy = new File(filePath + "\\copy_" + filename);
         if (myfile_copy.exists()) {
-            throw new FileIsExists("Такой файл уже существует");
+            throw new FileIsExists("Копия данного файла уже существует");
         }
         try (
                 FileReader reader = new FileReader(myfile);
