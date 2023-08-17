@@ -24,11 +24,12 @@ public class FileManager implements FileManagerInterface {
     public void fileManagerWriter() throws WriterStringIsEmpty, IOException {
         File myfile = new File(filePath + filename);
         FileWriter writer = new FileWriter(myfile, true);
-        if (getText() == null) {
+        String text = getText();
+        if (text.length() == 0) {
             writer.close();
             throw new WriterStringIsEmpty("Ошибка записи в файл. Пустая строка.");
         } else {
-            writer.write(getText() + "\n");
+            writer.write(text + "\n");
             System.out.println("Запись выполнена успешно");
         }
         writer.close();
@@ -39,8 +40,9 @@ public class FileManager implements FileManagerInterface {
         if (myfile.exists() && !myfile.isDirectory()) {
             FileReader fileReader = new FileReader(myfile);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
+            System.out.println();
             for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
-                System.out.println();
+                
                 System.out.println(line);
             }
             if (isFileEmpty(myfile)) {
@@ -72,11 +74,11 @@ public class FileManager implements FileManagerInterface {
         }
     }
 
-    public boolean isFileEmpty(File file) {
+    private boolean isFileEmpty(File file) {
         return file.length() == 0;
     }
 
-    public String getText() throws IOException {
+    private String getText() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, "ibm866"));
         System.out.print("Введите текст для записи в файл: ");
         String text = reader.readLine();
